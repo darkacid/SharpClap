@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Sockets;
 
 namespace SharpClap
 {
@@ -11,9 +14,31 @@ namespace SharpClap
         [STAThread]
         static void Main()
         {
+            Task mytask = Task.Run(() =>
+            //Thread myThread = new System.Threading.Thread(delegate () 
+            //Your code here
+
+            {
+                // Thread.CurrentThread.IsBackground = true;
+                /* run your code here */
+                const int PORT_NO = 5005;
+                const string SERVER_IP = "192.168.1.150";
+
+                //---listen at the specified IP and port no.---
+                IPAddress localAdd = IPAddress.Parse(SERVER_IP);
+                TcpListener listener = new TcpListener(localAdd, PORT_NO);
+                Console.WriteLine("Listening...");
+                listener.Start();
+
+                //---incoming client connected---
+                TcpClient client = listener.AcceptTcpClient();
+                Console.WriteLine("Client Connected!");
+                
+
+            });
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSharpClap());
+            Application.Run(new frmSharpClap(mytask));
         }
     }
 }

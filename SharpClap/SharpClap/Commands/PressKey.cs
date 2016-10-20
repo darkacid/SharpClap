@@ -63,6 +63,7 @@ namespace SharpClap.Commands
 
         private void SendKeys()
         {
+           //Will happen on trigger
             Extern.INPUT[] sendInputs = new Extern.INPUT[keyShort.Length];
             for(int i = 0; i < sendInputs.Length; i++)
             {

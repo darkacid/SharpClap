@@ -115,6 +115,7 @@
             this.chkEnabled.Size = new System.Drawing.Size(65, 17);
             this.chkEnabled.TabIndex = 4;
             this.chkEnabled.Text = "Enabled";
+            this.chkEnabled.Checked = true;
             this.chkEnabled.UseVisualStyleBackColor = true;
             this.chkEnabled.CheckedChanged += new System.EventHandler(this.chkEnabled_CheckedChanged);
             // 

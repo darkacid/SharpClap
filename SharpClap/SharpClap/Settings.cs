@@ -60,7 +60,7 @@ namespace Sean
 
         public int MinCutoff = 16;
 
-        public int MaxCutoff = 100;
+        public int MaxCutoff = 200;
 
         #endregion
     }

@@ -13,12 +13,20 @@ namespace SharpClap
 
     public partial class frmSharpClap : Form
     {
+        Task thistask;
+        DateTime start;
+        TimeSpan timeDiff;
+        bool done = false;
+
         private Random random = new Random();
 
         private bool currentlyProcessing = false;
 
-        public frmSharpClap()
+        public frmSharpClap(Task mytask)
         {
+            thistask = mytask;
+            Console.WriteLine("Task passed successfully");
+            
             InitializeComponent();
         }
 
@@ -161,7 +169,7 @@ namespace SharpClap
         #endregion
 
         #region Other Listeners
-
+//SECOND INSERT
         private void Form1_Load(object sender, EventArgs e)
         {
             foreach (MMDevice device in volumeMonitor.GetDevices())
@@ -215,6 +223,14 @@ namespace SharpClap
 
         private void volumeMonitor_OnTick(MMDevice device, int volume)
         {
+            volumeMonitor.ThresholdMaximum = 1000;
+            if (thistask.IsCompleted && (done == false)) // on clap, start timer, bool done to prevent second time exec
+
+            {
+                start = DateTime.Now;
+                Console.WriteLine("The task completed");
+                done = true;
+            }
             this.SetAverage(volume, volumeMonitor.ValueInThreshold(volume));
             this.SetCooldown(volumeMonitor.CurrentCooldown);
         }
@@ -258,7 +274,7 @@ namespace SharpClap
 
         private async void aboveCutoff()
         {
-            if (!chkEnabled.Checked || currentlyProcessing) return;
+           if (!chkEnabled.Checked || currentlyProcessing) return;
 
             // uses async/await to not lock the UI thread
             this.SetCooldown((int)nudCooldown.Value);
@@ -268,6 +284,15 @@ namespace SharpClap
 
         private async Task<string> sendKey()
         {
+
+            if (done == true)
+            {
+
+                timeDiff = DateTime.Now - start;
+                Console.WriteLine(timeDiff.TotalMilliseconds);
+            }
+            
+            
             currentlyProcessing = true;
             foreach (object o in lstActions.Items)
             {

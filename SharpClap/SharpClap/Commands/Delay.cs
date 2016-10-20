@@ -58,7 +58,7 @@ namespace SharpClap.Commands
                 waitValue = random.NextDouble(Value, this.GetRandomMax());
             }
 
-            await Task.Delay((int)(waitValue * 1000.00));
+           // await Task.Delay((int)(waitValue * 1000.00));
             return "Finished waiting " + waitValue.ToString("##.00") + "s";
         }
     }
