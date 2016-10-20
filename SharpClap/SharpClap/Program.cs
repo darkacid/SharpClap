@@ -21,8 +21,8 @@ namespace SharpClap
             {
                 // Thread.CurrentThread.IsBackground = true;
                 /* run your code here */
-                const int PORT_NO = 5005;
-                const string SERVER_IP = "192.168.1.150";
+                const int PORT_NO = 4242;
+                const string SERVER_IP = "127.0.0.1";
 
                 //---listen at the specified IP and port no.---
                 IPAddress localAdd = IPAddress.Parse(SERVER_IP);
